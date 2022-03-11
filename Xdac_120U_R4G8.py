@@ -289,7 +289,7 @@ def measurementConfig(averagingSample, voltageConv, currentConv):
 # duration in seconds
 # example:
 # seqValueV = [1, 2, 3, 4, 5, 6, 7, 8]
-# seqValueC= [10, 10, 10, 10, 10, 10, 10, 10]
+# seqValueC = [10, 10, 10, 10, 10, 10, 10, 10]
 # sweepOne (1, seqValueV, seqValueC, 5)
 # set channel 1 to change voltage value based on seqValueV and current value based seqValueC, for every 5 seconds
 def sweepOne(channel, seqValueV, seqValueC, duration):
