@@ -8,29 +8,30 @@ from time import sleep
 class XDAC:
     # class variables
 
-    def __init__(self, XDAC_IP='169.254.57.13'):
+    def __init__(self, xdac_ip='169.254.57.13'):
         # Connect to Req Server on XDAC via ZMQ
+        # self.number_of_channels = None
         context = zmq.Context()
-        req_socket = context.socket(zmq.REQ)
-        req_socket.connect("tcp://%s:5555" % XDAC_IP)
+        self.req_socket = context.socket(zmq.REQ)
+        self.req_socket.connect("tcp://%s:5555" % xdac_ip)
 
-        sub_socket = context.socket(zmq.SUB)
-        sub_socket.connect("tcp://%s:5556" % XDAC_IP)
+        self.sub_socket = context.socket(zmq.SUB)
+        self.sub_socket.connect("tcp://%s:5556" % xdac_ip)
 
-        subV_socket = context.socket(zmq.SUB)
-        subV_socket.connect("tcp://%s:5556" % XDAC_IP)
+        self.subV_socket = context.socket(zmq.SUB)
+        self.subV_socket.connect("tcp://%s:5556" % xdac_ip)
 
-        subC_socket = context.socket(zmq.SUB)
-        subC_socket.connect("tcp://%s:5556" % XDAC_IP)
+        self.subC_socket = context.socket(zmq.SUB)
+        self.subC_socket.connect("tcp://%s:5556" % xdac_ip)
 
         # edit channel maximum of XDAC
-        number_of_channels = 120
+        self.number_of_channels = 120
 
         # default range array for all channel
-        channel_voltage_range_key = [3] * number_of_channels
+        self.channel_voltage_range_key = [3] * self.number_of_channels
 
         # Voltage Range Dictionary
-        VOLTAGE_RANGE_DICT = {
+        self.VOLTAGE_RANGE_DICT = {
             0: (0, 5),
             1: (0, 10),
             2: (0, 20),
@@ -155,11 +156,16 @@ class XDAC:
 
     def set_channel_voltage_range(self, channel: int, _range):
         """
-        TODO: function description for set_channel_voltage_range()
+        Set the voltage range of a single channel.
+        range 0 corresponds to voltage = [0,5]  V
+        range 1 corresponds to voltage = [0,10] V
+        range 2 corresponds to voltage = [0,20] V
+        range 3 corresponds to voltage = [0,40] V
+
         Args:
             channel (int): channel number, starting at 1
-            _range: ???
-            TODO: what is range???
+            _range (int): integer between 0-3 indicating the desired voltage range based on VOLTAGE_RANGE_DICT
+
         Returns:
             0 if successful
             1 if channel is outside accepted range
@@ -170,11 +176,11 @@ class XDAC:
             print("Channel exceeds the limit")
             return 1
 
-        if _range not in range(4, 8):
+        if _range not in range(0, 4):
             print("Wrong Channel Range, please look at Range Dictionary")
             return 1
 
-        self.channel_range[channel - 1] = _range
+        self.channel_voltage_range_key[channel - 1] = _range
 
         # Send Request to XDAC (Server)
         msg = "SETR:" + ("%d" % channel) + ":" + str(_range)
