@@ -44,7 +44,7 @@ class XDAC:
         self.req_socket.send(msg.encode('utf-8'))
         message = self.req_socket.recv()
 
-        return (message.decode('utf-8'))
+        return message.decode('utf-8')
 
     def lock(self):
         # Send Request to XDAC (Server)
@@ -52,7 +52,7 @@ class XDAC:
         self.req_socket.send(msg.encode('utf-8'))
         message = self.req_socket.recv()
 
-        return (message.decode('utf-8'))
+        return message.decode('utf-8')
 
     def shutdown(self):
         # Send Request to XDAC (Server)
@@ -60,7 +60,7 @@ class XDAC:
         self.req_socket.send(msg.encode('utf-8'))
         message = self.req_socket.recv()
 
-        return (message.decode('utf-8'))
+        return message.decode('utf-8')
 
     def set_channel_voltage(self, channel: int, voltage_val: float):
         """
