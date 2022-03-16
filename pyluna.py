@@ -4,7 +4,7 @@ Created on Wed Sep 12 19:54:26 2018
 
 @author: PUMA
 """
-import visa
+import pyvisa as visa
 import matplotlib.pyplot as plt
 import time
 import numpy as np
