@@ -29,8 +29,8 @@ def main():
             luna.set_source_wavelength(wavelength=wavelength)
             luna.turnon_light_source()
 
-            current = xdac.read_single_channel_current(1)
-            voltage = xdac.read_single_channel_voltage(1)
+            current = float(xdac.read_single_channel_current(1))
+            voltage = float(xdac.read_single_channel_voltage(1))
 
             wavelengths.append(wavelength)
             data.append( current * voltage )
