@@ -3,7 +3,7 @@
 '''
 
 # LUNA import block:
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from pyluna import Luna
 
 # XDAC import block:
