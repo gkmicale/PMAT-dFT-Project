@@ -38,7 +38,7 @@ class XDAC:
             3: (0, 40)
         }
 
-    def unlock(self, key='169.254.57.13'):
+    def unlock(self, key='USMIT120c001'):
         # Send Request to XDAC (Server)
         msg = "GETINFO:" + key
         self.req_socket.send(msg.encode('utf-8'))
